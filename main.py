@@ -2,21 +2,14 @@
 import os
 import json
 import boto3
-        
+import requests
+
 def lambda_handler(event, context):
     json_region = os.environ['AWS_REGION']
     messages = event["Records"]
     for message in messages:
         messageID = message["messageId"]
-        body = message["body"]
-        #POST INTO NGINX
+        url = 'http://[INSERT IP ADDRESS HERE]'
+        myobj = {"testkey":messageID}
+        x = requests.post(url, data = myobj)
     print(event)
-    return {
-        "statusCode": 200,
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "body": json.dumps({
-            "Region ": json_region
-        })
-    }
